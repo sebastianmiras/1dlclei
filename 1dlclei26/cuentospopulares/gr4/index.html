@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entregas de la actividad Cuento popular - GR4</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
+    header {
+      text-align: center;
+      padding: 28px 16px 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    h2 {
+      margin: 10px 0 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #444;
+    }
+    .viewer {
+      width: min(1200px, 94vw);
+      margin: 18px auto 28px;
+      display: grid;
+      grid-template-columns: 80px 1fr 80px;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-btn {
+      width: 64px;
+      height: 64px;
+      border: none;
+      border-radius: 50%;
+      font-size: 2rem;
+      cursor: pointer;
+      background: #222;
+      color: white;
+      margin: 0 auto;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .nav-btn:hover {
+      background: #000;
+      transform: scale(1.05);
+    }
+    .image-frame {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    img {
+      max-width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .caption {
+      margin-top: 14px;
+      font-size: 1rem;
+      color: #333;
+      word-break: break-word;
+      text-align: center;
+    }
+    .counter {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 8px;
+    }
+    @media (max-width: 700px) {
+      .viewer {
+        grid-template-columns: 56px 1fr 56px;
+        gap: 8px;
+      }
+      .nav-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+      }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1rem; }
+      .image-frame {
+        padding: 10px;
+        min-height: 65vh;
+      }
+      img { max-height: 65vh; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Entregas de la actividad Cuento popular</h1>
+    <h2>GR4 1DLCLEI26</h2>
+  </header>
+
+  <main class="viewer">
+    <button class="nav-btn" id="prevBtn" aria-label="Imagen anterior">&#10094;</button>
+
+    <section class="image-frame">
+      <img id="slideImage" src="" alt="Entrega del grupo" />
+      <div class="caption" id="caption"></div>
+      <div class="counter" id="counter"></div>
+    </section>
+
+    <button class="nav-btn" id="nextBtn" aria-label="Imagen siguiente">&#10095;</button>
+  </main>
+
+  <script>
+    const images = [
+      "photo_1_2026-03-16_17-58-10.jpg",
+      "photo_2_2026-03-16_17-58-10.jpg",
+      "photo_3_2026-03-16_17-58-10.jpg",
+      "photo_4_2026-03-16_17-58-10.jpg",
+      "photo_5_2026-03-16_17-58-10.jpg",
+      "photo_6_2026-03-16_17-58-10.jpg",
+      "photo_7_2026-03-16_17-58-10.jpg",
+      "photo_8_2026-03-16_17-58-10.jpg",
+      "photo_9_2026-03-16_17-58-10.jpg",
+      "photo_10_2026-03-16_17-58-10.jpg",
+      "photo_11_2026-03-16_17-58-10.jpg",
+      "photo_12_2026-03-16_17-58-10.jpg",
+      "photo_13_2026-03-16_17-58-10.jpg",
+      "photo_14_2026-03-16_17-58-10.jpg"
+    ];
+
+    let currentIndex = 0;
+
+    const slideImage = document.getElementById("slideImage");
+    const caption = document.getElementById("caption");
+    const counter = document.getElementById("counter");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showImage(index) {
+      currentIndex = (index + images.length) % images.length;
+      slideImage.src = images[currentIndex];
+      slideImage.alt = `Entrega ${currentIndex + 1}`;
+      caption.textContent = images[currentIndex];
+      counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    }
+
+    prevBtn.addEventListener("click", () => showImage(currentIndex - 1));
+    nextBtn.addEventListener("click", () => showImage(currentIndex + 1));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") showImage(currentIndex - 1);
+      if (event.key === "ArrowRight") showImage(currentIndex + 1);
+    });
+
+    showImage(0);
+  </script>
+</body>
+</html>
